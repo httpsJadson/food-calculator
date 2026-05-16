@@ -25,8 +25,8 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('DriveWise: Dirija com sabedoria')
-    .setDescription('Documentação da API de DriveWise: Dirija com sabedoria')
+    .setTitle('Food Calculator API')
+    .setDescription('Documentação da API de Food Calculator')
     .setVersion('1.3')
     .addBearerAuth()
     .build();
