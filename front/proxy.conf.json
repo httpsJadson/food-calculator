@@ -1,0 +1,10 @@
+{
+  "/fluig": {
+    "target": "https://gd7distribuidor160600.fluig.cloudtotvs.com.br",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/fluig": ""
+    }
+  }
+}
