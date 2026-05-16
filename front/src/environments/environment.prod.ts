@@ -5,7 +5,7 @@ export const environment: AppEnvironment = {
 
   apiBaseUrl: '',
 
-  fluigBaseUrl: 'https://gd7distribuidor160600.fluig.cloudtotvs.com.br',
+  fluigBaseUrl: '',
 
   useOAuth: false,
 
