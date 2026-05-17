@@ -28,3 +28,51 @@ enum JobRole {
   ADMIN
   USER
 }
+
+enum FoodCategory {
+  MEAT
+  SIDE_DISH
+  DRINK
+  DESSERT
+  SNACK
+  BBQ
+  SALAD
+}
+
+enum MeasurementUnit {
+  GRAM
+  KILOGRAM
+  MILLILITER
+  LITER
+  UNIT
+}
+
+model FoodItem {
+  id          Int          @id @default(autoincrement())
+  name        String
+  description String?
+  category    FoodCategory
+
+  unit                 MeasurementUnit
+  consumptionPerPerson Float
+  wastePercentage      Float           @default(0)
+  packageSize          Float?
+  unitCost             Decimal?        @db.Decimal(10, 2)
+
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("food_items")
+}
+
+model ConsumptionProfile {
+  id              Int    @id @default(autoincrement())
+  name            String
+  
+  adultEquivalent Float
+
+  createdAt DateTime @default(now())
+
+  @@map("consumption_profiles")
+}
