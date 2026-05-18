@@ -5,6 +5,7 @@ import { FoodModule } from './food/food.module';
 import { ConsumptionProfileModule } from './consumption-profile/consumption-profile.module';
 import { ThrottlerModule } from '@nestjs/throttler/dist/throttler.module';
 import { FoodCalculateModule } from './food-calculate/food-calculate.module';
+import { EventConsumptionModifierModule } from './event-consumption-modifier/event-consumption-modifier.module';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { FoodCalculateModule } from './food-calculate/food-calculate.module';
     UserModule, 
     AuthModule, 
     FoodModule, 
-    ConsumptionProfileModule, FoodCalculateModule
+    ConsumptionProfileModule, FoodCalculateModule, EventConsumptionModifierModule
   ],
   controllers: [],
   providers: [],

@@ -30,13 +30,14 @@ enum JobRole {
 }
 
 enum FoodCategory {
-  MEAT
+  PROTEIN
   SIDE_DISH
+  APPETIZER
   DRINK
   DESSERT
-  SNACK
-  BBQ
   SALAD
+  FRUIT
+  UTENSIL
 }
 
 enum MeasurementUnit {
@@ -67,12 +68,24 @@ model FoodItem {
 }
 
 model ConsumptionProfile {
-  id              Int    @id @default(autoincrement())
+  id              Int      @id @default(autoincrement())
   name            String
-  
   adultEquivalent Float
-
-  createdAt DateTime @default(now())
+  createdAt       DateTime @default(now())
 
   @@map("consumption_profiles")
+}
+
+model EventConsumptionModifier {
+  id         Int       @id @default(autoincrement())
+  eventType  EventType
+  multiplier Float
+  createdAt  DateTime  @default(now())
+}
+ 
+enum EventType {
+  BBQ
+  WEDDING
+  CORPORATE
+  BIRTHDAY
 }

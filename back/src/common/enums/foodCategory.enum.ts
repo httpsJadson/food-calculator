@@ -1,0 +1,9 @@
+export enum FoodCategory {
+  PROTEIN = 'PROTEIN',
+  SIDE_DISH = 'SIDE_DISH',
+  APPETIZER = 'APPETIZER',
+  DRINK = 'DRINK',
+  DESSERT = 'DESSERT',
+  SALAD = 'SALAD',
+  UTENSIL = 'UTENSIL',
+}
