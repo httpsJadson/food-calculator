@@ -1,26 +1,65 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateConsumptionProfileDto } from './dto/create-consumption-profile.dto';
 import { UpdateConsumptionProfileDto } from './dto/update-consumption-profile.dto';
+import { PrismaService } from '../database/prisma.service';
 
 @Injectable()
 export class ConsumptionProfileService {
-  create(createConsumptionProfileDto: CreateConsumptionProfileDto) {
-    return 'This action adds a new consumptionProfile';
+  constructor(private readonly prismaService: PrismaService) {}
+
+  async create(createConsumptionProfileDto: CreateConsumptionProfileDto) {
+    try {
+      return await this.prismaService.consumptionProfile.create({
+        data: {
+          name: createConsumptionProfileDto.name,
+          adultEquivalent: createConsumptionProfileDto.adultEquivalent,
+        },
+      });
+    } catch (error: any) {
+      throw new BadRequestException('Failed to create consumption profile');
+    }
   }
 
-  findAll() {
-    return `This action returns all consumptionProfile`;
+  async findAll() {
+    return await this.prismaService.consumptionProfile.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} consumptionProfile`;
+  async findOne(id: number) {
+    const profile = await this.prismaService.consumptionProfile.findUnique({
+      where: { id },
+    });
+
+    if (!profile) {
+      throw new NotFoundException(`Consumption profile with ID ${id} not found`);
+    }
+
+    return profile;
   }
 
-  update(id: number, updateConsumptionProfileDto: UpdateConsumptionProfileDto) {
-    return `This action updates a #${id} consumptionProfile`;
+  async update(id: number, updateConsumptionProfileDto: UpdateConsumptionProfileDto) {
+    try {
+      return await this.prismaService.consumptionProfile.update({
+        where: { id },
+        data: updateConsumptionProfileDto,
+      });
+    } catch (error: any) {
+      if (error.code === 'P2025') {
+        throw new NotFoundException(`Consumption profile with ID ${id} not found`);
+      }
+      throw new BadRequestException('Failed to update consumption profile');
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} consumptionProfile`;
+  async remove(id: number) {
+    try {
+      return await this.prismaService.consumptionProfile.delete({
+        where: { id },
+      });
+    } catch (error: any) {
+      if (error.code === 'P2025') {
+        throw new NotFoundException(`Consumption profile with ID ${id} not found`);
+      }
+      throw new BadRequestException('Failed to delete consumption profile');
+    }
   }
 }
